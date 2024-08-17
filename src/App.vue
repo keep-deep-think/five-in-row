@@ -162,7 +162,7 @@ const placeChess = (index) => {
 
         if (winnerMsg.value === "") {
           timeout = setTimeout(() => {
-            let bestMove = findBestMove(board.value, 2);
+            let bestMove = findBestMove(board.value, false);
             board.value[bestMove] = 2;
             playerPlaceChess(bestMove);
           }, 100);
@@ -175,7 +175,7 @@ const placeChess = (index) => {
 
         if (winnerMsg.value === "") {
           timeout = setTimeout(() => {
-            let bestMove = findBestMove(board.value, 1);
+            let bestMove = findBestMove(board.value, true);
             board.value[bestMove] = 1;
             playerPlaceChess(bestMove);
           }, 100);
@@ -199,7 +199,6 @@ const drawPlaceChess = (index) => {
   chess.style.left = `${(index % 15) * 40}px`;
   chess.style.top = `${Math.floor(index / 15) * 40}px`;
 
-  // activePlayer.value = "computer";
   followMouseChess?.classList.remove("show");
 };
 
@@ -212,7 +211,7 @@ const setMouseFollowChess = () => {
   // 添加鼠标移动事件监听器，限定在棋盘区域内
   document.addEventListener("mousemove", function (event) {
     // 还未分配角色 || 该对方走棋了 || 或者某方获胜了
-    if (priorityMoveRole.value === "" || winnerMsg.value || priorityMoveRole.value !== activePlayer.value) return;
+    if (priorityMoveRole.value === "" || winnerMsg.value) return;
     // 检查鼠标是否在棋盘区域内
     if (
       event.clientX >= rect.left &&
@@ -244,7 +243,7 @@ const checkWinner = (index) => {
 
   // console.log({ rowLine, player });
   if (checkFiveChessConnected(rowLine, player)) {
-    return sendWinMsg(player);
+    return showWinMsg(player);
   }
 
   // 检查落子点所在列是否存在五子连珠
@@ -254,7 +253,7 @@ const checkWinner = (index) => {
   }
 
   if (checkFiveChessConnected(colLine, player)) {
-    return sendWinMsg(player);
+    return showWinMsg(player);
   }
 
   // 检查落子点所在对角线是否存在五子连珠
@@ -268,7 +267,7 @@ const checkWinner = (index) => {
       player
     )
   ) {
-    return sendWinMsg(player);
+    return showWinMsg(player);
   }
 
   // console.log(index, diagonalIndex, player);
@@ -280,19 +279,19 @@ const checkWinner = (index) => {
       player
     )
   ) {
-    return sendWinMsg(player);
+    return showWinMsg(player);
   }
 
   // 平局检测-因为黑子先下有优势,如何棋子落满棋盘,仍是平局,判断后落子的胜
-  // if (board.value.includes(0) === false) {
-  //   sendWinMsg(2);
-  // }
+  if (board.value.includes(0) === false) {
+    showWinMsg(2);
+  }
 };
-const sendWinMsg = (player) => {
+const showWinMsg = (player) => {
   if (priorityMoveRole.value === "human") {
-    winnerMsg.value = `${player === 1 ? "人" : "AI"}赢了!`;
+    winnerMsg.value = `${player === 1 ? "人" : "电脑"}赢了!`;
   } else {
-    winnerMsg.value = `${player === 1 ? "AI" : "人"}赢了!`;
+    winnerMsg.value = `${player === 1 ? "电脑" : "人"}赢了!`;
   }
   message.success(winnerMsg.value);
   btnName.value = "再玩一局";
@@ -468,4 +467,3 @@ function calcDiagonalIndex(row, col, placeIndex, boardSize) {
   }
 }
 </style>
-./computer-bak

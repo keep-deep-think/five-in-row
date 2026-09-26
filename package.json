@@ -1,5 +1,5 @@
 {
-  "name": "electron-five-chess",
+  "name": "five-in-row",
   "description": "五子棋",
   "author": "tank",
   "license": "MIT",
@@ -9,8 +9,9 @@
   "scripts": {
     "start": "chcp 65001 && vite",
     "server": "nodemon server/index.js",
-    "build": "vue-tsc && vite build && electron-builder --win --x64",
-    "release": "cross-env GH_TOKEN=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 electron-builder",
+    "build": "vue-tsc && vite build",
+    "pack": "electron-builder",
+    "release": "electron-builder --publish always",
     "preview": "vite preview",
     "build-icon": "electron-icon-builder --input=./public/icon.ico --output=build --flatten"
   },
@@ -22,9 +23,38 @@
     "vue": "^3.4.21",
     "ws": "^8.18.0"
   },
+  "build": {
+    "appId": "com.deepthinker.gomoku",
+    "productName": "five-in-row",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "keep-deep-think",
+        "repo": "five-in-row"
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    }
+  },
   "repository": {
     "type": "git",
-    "url": "git@github.com:keep-deep-think/electron-todolist.git"
+    "url": "git@github.com:keep-deep-think/five-in-row.git"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",

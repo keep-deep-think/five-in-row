@@ -34,7 +34,7 @@
         "provider": "github",
         "owner": "keep-deep-think",
         "repo": "five-in-row",
-        "draft": false
+        "releaseType": "release"
       }
     ],
     "win": {

@@ -4,7 +4,7 @@
   "author": "keep-deep-think",
   "license": "MIT",
   "private": true,
-  "version": "0.0.4",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "start": "chcp 65001 && vite",

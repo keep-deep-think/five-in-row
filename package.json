@@ -33,7 +33,8 @@
       {
         "provider": "github",
         "owner": "keep-deep-think",
-        "repo": "five-in-row"
+        "repo": "five-in-row",
+        "draft": false
       }
     ],
     "win": {

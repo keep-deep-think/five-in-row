@@ -10,6 +10,10 @@ jobs:
     name: Build and Release Electron App
     runs-on: ${{ matrix.os }}
 
+    # 显式声明读写权限，允许 electron-builder 创建 Release 并上传文件
+    permissions:
+      contents: write
+
     strategy:
       matrix:
         os: [windows-latest, macos-latest,ubuntu-latest] 

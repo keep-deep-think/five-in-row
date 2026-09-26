@@ -4,7 +4,7 @@
   "author": "keep-deep-think",
   "license": "MIT",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "start": "chcp 65001 && vite",
@@ -43,7 +43,20 @@
     },
     "mac": {
       "target": [
-        "dmg"
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
       ]
     },
     "linux": {

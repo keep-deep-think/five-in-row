@@ -31,7 +31,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: latest
           run_install: false
 
       # 2. 获取 pnpm 缓存路径并配置缓存，加速依赖安装

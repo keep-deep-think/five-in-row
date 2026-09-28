@@ -3,21 +3,17 @@ name: Build and Release
 on:
   push:
     tags:
-      - 'v*' # 触发条件：推送 v* 标签时（例如 v1.0.1）
+      - 'v*'
 
 jobs:
   release:
     name: Build and Release Electron App
     runs-on: ${{ matrix.os }}
-
-    # 显式声明读写权限，允许 electron-builder 创建 Release 并上传文件
     permissions:
       contents: write
-
     strategy:
       matrix:
-        os: [windows-latest, macos-latest,ubuntu-latest] 
-
+        os: [windows-latest, macos-latest, ubuntu-latest]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,27 +22,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      # 1. 核心改动：全局安装并启用 pnpm
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: latest
-          run_install: false
-
-      # 2. 获取 pnpm 缓存路径并配置缓存，加速依赖安装
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install

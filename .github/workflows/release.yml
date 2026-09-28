@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [windows-latest, macos-latest,ubuntu-latest] 
+        os: [windows-latest, macos-latest, ubuntu-latest] 
 
     steps:
       - name: Checkout code
@@ -49,7 +49,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --shamefully-hoist
 
       - name: Build and Publish
         env:

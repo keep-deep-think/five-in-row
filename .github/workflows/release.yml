@@ -27,11 +27,11 @@ jobs:
         with:
           node-version: 20
 
-      # 1. 核心改动：全局安装并启用 pnpm
+      # 1. 核心改动：全局安装并启用 pnpm（锁定为 8.x，与 lockfileVersion 6.0 匹配）
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: latest
+          version: 8
           run_install: false
 
       # 2. 获取 pnpm 缓存路径并配置缓存，加速依赖安装
